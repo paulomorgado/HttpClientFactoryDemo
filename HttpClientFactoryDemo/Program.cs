@@ -15,6 +15,7 @@ namespace HttpClientDemo
                 .ConfigureServices((hostContext, services) =>
                     {
                         services.AddHostedService<Worker>();
+                        services.AddHttpClient();
                     })
                 .RunConsoleAsync();
         }

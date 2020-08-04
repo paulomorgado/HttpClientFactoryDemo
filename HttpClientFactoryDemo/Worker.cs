@@ -10,11 +10,13 @@ namespace HttpClientDemo
 {
     public class Worker : BackgroundService
     {
+        private readonly IHttpClientFactory httpClientFactory;
         private readonly ILogger<Worker> logger;
 
-        public Worker(ILogger<Worker> logger)
+        public Worker(IHttpClientFactory httpClientFactory, ILogger<Worker> logger)
         {
             this.logger = logger;
+            this.httpClientFactory = httpClientFactory;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -40,7 +42,7 @@ namespace HttpClientDemo
             {
                 try
                 {
-                    var response = await httpClient.GetAsync("http://bing.com/", stoppingToken);
+                    var response = await httpClient.GetAsync("https://api.github.com/", stoppingToken);
                     this.logger.LogDebug("{StatusCode}", response.StatusCode);
                 }
                 catch (Exception ex)
@@ -55,11 +57,9 @@ namespace HttpClientDemo
             }
         }
 
-        private readonly HttpClientHandler httpClientHandler = new HttpClientHandler();
-
         private HttpClient GetHttpClient()
         {
-            var httpClient = new HttpClient(httpClientHandler, false);
+            var httpClient = this.httpClientFactory.CreateClient();
             return httpClient;
         }
     }
