@@ -36,7 +36,7 @@ namespace HttpClientDemo
 
         private async Task GetData(CancellationToken stoppingToken)
         {
-            var httpClient = GetHttpClient();
+            using (var httpClient = GetHttpClient())
             {
                 try
                 {
@@ -55,10 +55,11 @@ namespace HttpClientDemo
             }
         }
 
-        private readonly HttpClient httpClient = new HttpClient();
+        private readonly HttpClientHandler httpClientHandler = new HttpClientHandler();
 
         private HttpClient GetHttpClient()
         {
+            var httpClient = new HttpClient(httpClientHandler, false);
             return httpClient;
         }
     }
