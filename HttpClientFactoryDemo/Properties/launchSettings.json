@@ -1,0 +1,10 @@
+﻿{
+  "profiles": {
+    "HttpClientDemo": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
