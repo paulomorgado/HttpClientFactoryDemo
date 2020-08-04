@@ -58,6 +58,7 @@ namespace HttpClientDemo
         private HttpClient GetHttpClient()
         {
             var httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.ConnectionClose = true;
             return httpClient;
         }
     }
