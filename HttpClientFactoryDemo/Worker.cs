@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
@@ -10,13 +11,13 @@ namespace HttpClientDemo
 {
     public class Worker : BackgroundService
     {
-        private readonly IHttpClientFactory httpClientFactory;
         private readonly ILogger<Worker> logger;
+        private readonly IServiceProvider serviceProvider;
 
-        public Worker(IHttpClientFactory httpClientFactory, ILogger<Worker> logger)
+        public Worker(IServiceProvider serviceProvider, ILogger<Worker> logger)
         {
             this.logger = logger;
-            this.httpClientFactory = httpClientFactory;
+            this.serviceProvider = serviceProvider;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -42,8 +43,7 @@ namespace HttpClientDemo
             {
                 try
                 {
-                    var response = await httpClient.GetAsync("/", stoppingToken);
-                    this.logger.LogDebug("{StatusCode}", response.StatusCode);
+                    var response = await httpClient.GetApiUrlsAsync(stoppingToken);
                 }
                 catch (Exception ex)
                 {
@@ -57,9 +57,9 @@ namespace HttpClientDemo
             }
         }
 
-        private HttpClient GetHttpClient()
+        private IGitHubClient GetHttpClient()
         {
-            var httpClient = this.httpClientFactory.CreateClient("GitHubClient");
+            var httpClient = this.serviceProvider.GetService<IGitHubClient>();
             return httpClient;
         }
     }
