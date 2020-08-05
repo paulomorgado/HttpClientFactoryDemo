@@ -42,7 +42,7 @@ namespace HttpClientDemo
             {
                 try
                 {
-                    var response = await httpClient.GetAsync("https://api.github.com/", stoppingToken);
+                    var response = await httpClient.GetAsync("/", stoppingToken);
                     this.logger.LogDebug("{StatusCode}", response.StatusCode);
                 }
                 catch (Exception ex)
@@ -59,7 +59,7 @@ namespace HttpClientDemo
 
         private HttpClient GetHttpClient()
         {
-            var httpClient = this.httpClientFactory.CreateClient();
+            var httpClient = this.httpClientFactory.CreateClient("GitHubClient");
             return httpClient;
         }
     }

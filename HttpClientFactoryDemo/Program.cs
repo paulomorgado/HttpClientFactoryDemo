@@ -15,7 +15,14 @@ namespace HttpClientDemo
                 .ConfigureServices((hostContext, services) =>
                     {
                         services.AddHostedService<Worker>();
-                        services.AddHttpClient();
+
+                        services.AddHttpClient("GitHubClient", client =>
+                        {
+                            client.BaseAddress = new Uri("https://api.github.com/");
+                            client.DefaultRequestHeaders.Add("Accept", "application/vnd.github.v3+json");
+                            client.DefaultRequestHeaders.Add("User-Agent", "HttpClientFactoryTesting");
+                        })
+                        .SetHandlerLifetime(TimeSpan.FromSeconds(10));
                     })
                 .RunConsoleAsync();
         }
