@@ -28,7 +28,7 @@ namespace HttpClientDemo
 
                 try
                 {
-                    await Task.WhenAll(Enumerable.Range(0, 250).Select(_ => GetData(stoppingToken)));
+                    await GetData(stoppingToken);
                 }
                 catch (Exception ex)
                 {
