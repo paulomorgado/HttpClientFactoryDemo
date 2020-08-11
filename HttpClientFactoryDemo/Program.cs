@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -22,7 +23,7 @@ namespace HttpClientDemo
                             client.DefaultRequestHeaders.Add("Accept", "application/vnd.github.v3+json");
                             client.DefaultRequestHeaders.Add("User-Agent", "HttpClientFactoryTesting");
                         })
-                        .SetHandlerLifetime(TimeSpan.FromSeconds(10))
+                        .ConfigurePrimaryHttpMessageHandler(() => new SocketsHttpHandler { PooledConnectionLifetime = TimeSpan.FromSeconds(10) })
                         .AddTypedClient<IGitHubClient, GitHubClient>();
                     })
                 .RunConsoleAsync();
