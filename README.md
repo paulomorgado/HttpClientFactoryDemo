@@ -80,6 +80,7 @@ This demo uses the implmentation of `IHttpHandlerFactory` to create instances of
   * [Documentation](https://docs.microsoft.com/dotnet/api/system.net.http.socketshttphandler)
   * [Browse source code](https://source.dot.net/)
 * [Make HTTP requests using](https://docs.microsoft.com/aspnet/core/fundamentals/http-requests)[`IHttpClientFactory`](https://docs.microsoft.com/aspnet/core/fundamentals/http-requests)[in ASP.NET Core](https://docs.microsoft.com/aspnet/core/fundamentals/http-requests)
+* [Use IHttpClientFactory to implement resilient HTTP requests](https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests)
 * IHttpClientFactoryinterface
   * [Documentation](https://docs.microsoft.com/dotnet/api/system.net.http.ihttpclientfactory)
   * [Browse source code](https://source.dot.net/)
